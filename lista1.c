@@ -6,6 +6,9 @@ void create_random_array(int array[], int length);
 void print_array(int array[], int length);
 int sequential_search(int array[], int length, int wanted);
 int sentinel_sequential_search(int array[], int length, int wanted);
+int sequential_search_move_forward(int array[], int length, int wanted);
+
+
 
 int main() {
   int length, wanted, index = -1;
@@ -20,13 +23,15 @@ int main() {
   create_random_array(array, length);
   print_array(array, length);
 
-  index = sentinel_sequential_search(array, length, wanted);
+  index = sequential_search_move_forward(array, length, wanted);
 
   if(index == -1) {
     printf("Numero nao encontrado\n");
   } else {
     printf("Numero encontrado no indice = %d\n", index);
   }
+
+  print_array(array, length);
 
   return 0;
 }
@@ -80,4 +85,20 @@ int sentinel_sequential_search(int array[], int length, int wanted) {
   } else {
     return -1;  // Number not found
   }
+}
+
+int sequential_search_move_forward(int array[], int length, int wanted) {
+  int i = 0, swap;
+
+  for(i = 0; i < length; i++) {
+    if(array[i] == wanted) {
+      // Move found number to the first position
+      swap = array[0];
+      array[0] = array[i];
+      array[i] = swap;
+
+      return i; // Found the number
+    }
+  }
+  return -1;  // Number not found
 }
