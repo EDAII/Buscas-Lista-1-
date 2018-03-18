@@ -7,7 +7,7 @@ void print_array(int array[], int length);
 int sequential_search(int array[], int length, int wanted);
 int sentinel_sequential_search(int array[], int length, int wanted);
 int sequential_search_move_forward(int array[], int length, int wanted);
-
+int sequential_search_transposition(int array[], int length, int wanted);
 
 
 int main() {
@@ -23,7 +23,7 @@ int main() {
   create_random_array(array, length);
   print_array(array, length);
 
-  index = sequential_search_move_forward(array, length, wanted);
+  index = sequential_search_transposition(array, length, wanted);
 
   if(index == -1) {
     printf("Numero nao encontrado\n");
@@ -100,5 +100,22 @@ int sequential_search_move_forward(int array[], int length, int wanted) {
       return i; // Found the number
     }
   }
+  return -1;  // Number not found
+}
+
+int sequential_search_transposition(int array[], int length, int wanted) {
+  int i = 0, swap;
+
+  for(i = 0; i < length; i++) {
+    if(array[i] == wanted) {
+      // Transposes found number with the previous
+      swap = array[i-1];
+      array[i-1] = array[i];
+      array[i] = swap;
+
+      return i; // Found the number
+    }
+  }
+
   return -1;  // Number not found
 }
