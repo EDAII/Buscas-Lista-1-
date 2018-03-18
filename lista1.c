@@ -2,6 +2,22 @@
 #include <stdlib.h> // To use functions rand() and srand()
 #include <time.h> // To use function time()
 
+void create_random_array(int array[], int length);
+void print_array(int array[], int length);
+
+int main() {
+  int length;
+
+  printf("Indique o numero de elementos: ");
+  scanf("%d", &length);
+  int array[length];
+
+  create_random_array(array, length);
+  print_array(array, length);
+
+  return 0;
+}
+
 void create_random_array(int array[], int length) {
   int i = 0, RANGE = 100;
 
@@ -14,14 +30,12 @@ void create_random_array(int array[], int length) {
   }
 }
 
-int main() {
-  int array_length;
+void print_array(int array[], int length) {
+  int i = 0;
 
-  printf("Indique o numero de elementos: ");
-  scanf("%d", &array_length);
-  int array[array_length];
-
-  create_random_array(array, array_length);
-
-  return 0;
+  printf("[");
+  for(i = 0; i < length - 1; i++) {
+    printf("%d, ", array[i]);
+  }
+  printf("%d]\n", array[i]);
 }
