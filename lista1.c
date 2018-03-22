@@ -8,30 +8,59 @@ int sequential_search(int array[], int length, int wanted);
 int sentinel_sequential_search(int array[], int length, int wanted);
 int sequential_search_move_forward(int array[], int length, int wanted);
 int sequential_search_transposition(int array[], int length, int wanted);
-
+void search_options();
 
 int main() {
-  int length, wanted, index = -1;
+  int length, wanted, index = -1, search_option = 0;
+  char continue_search;
 
-  printf("Indique o numero de elementos: ");
-  scanf("%d", &length);
-  int array[length];
+  // Continue the search?
+  do {
+    search_options();
+    scanf("%d", &search_option);
 
-  printf("Indique um numero para procurar: ");
-  scanf("%d", &wanted);
+    printf("\nIndique o numero de elementos: ");
+    scanf("%d", &length);
+    int array[length];
 
-  create_random_array(array, length);
-  print_array(array, length);
+    printf("Indique um numero para procurar: ");
+    scanf("%d", &wanted);
 
-  index = sequential_search_move_forward(array, length, wanted);
+    create_random_array(array, length);
+    printf("\nLista gerada:\n");
+    print_array(array, length);
 
-  if(index == -1) {
-    printf("Numero nao encontrado\n");
-  } else {
-    printf("Numero encontrado no indice = %d\n", index);
-  }
+    switch (search_option) {
+      case 1:
+        index = sequential_search(array, length, wanted);
+        break;
+      case 2:
+        index = sentinel_sequential_search(array, length, wanted);
+        break;
+      case 3:
+        index = sequential_search_move_forward(array, length, wanted);
+        printf("\nLista apos busca:\n");
+        print_array(array, length);
+        break;
+      case 4:
+        index = sequential_search_transposition(array, length, wanted);
+        printf("\nLista apos busca:\n");
+        print_array(array, length);
+        break;
+      default:
+        index = -1;
+    }
 
-  // print_array(array, length);
+    if(index == -1) {
+      printf("\nNumero nao encontrado\n");
+    } else {
+      printf("\nNumero encontrado no indice = %d\n", index);
+    }
+
+  printf("\nDeseja continuar? (S - sim/ N - nao): ");
+  scanf(" %c", &continue_search);
+
+} while(continue_search == 'S' || continue_search == 's');
 
   return 0;
 }
@@ -120,4 +149,12 @@ int sequential_search_transposition(int array[], int length, int wanted) {
   }
 
   return -1;  // Number not found
+}
+
+void search_options() {
+  printf("\n\tEscolha uma busca:\n\n");
+  printf("1 - Busca sequencial\n");
+  printf("2 - Busca sequencial com sentinela\n");
+  printf("3 - Busca sequencial com mover para frente\n");
+  printf("4 - Busca sequencial com tranposicao\n");
 }
