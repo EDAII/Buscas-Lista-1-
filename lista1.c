@@ -8,6 +8,8 @@ int sequential_search(int array[], int length, int wanted);
 int sentinel_sequential_search(int array[], int length, int wanted);
 int sequential_search_move_forward(int array[], int length, int wanted);
 int sequential_search_transposition(int array[], int length, int wanted);
+int binary_search(int array[], int length, int wanted);
+int binary_search_recursive(int array[], int start, int end, int wanted);
 void search_options();
 
 int main() {
@@ -44,6 +46,16 @@ int main() {
         break;
       case 4:
         index = sequential_search_transposition(array, length, wanted);
+        printf("\nLista apos busca:\n");
+        print_array(array, length);
+        break;
+      case 5:
+        index = binary_search(array, length, wanted);
+        printf("\nLista apos busca:\n");
+        print_array(array, length);
+        break;
+      case 6:
+        binary_search_recursive(array, start, end, wanted)
         printf("\nLista apos busca:\n");
         print_array(array, length);
         break;
@@ -151,10 +163,42 @@ int sequential_search_transposition(int array[], int length, int wanted) {
   return -1;  // Number not found
 }
 
+int binary_search(int array[], int length, int wanted){
+
+	int start=0;
+	int end= length-1;
+	int middle = (start+end)/2;
+
+	while(middle!=start || middle!=end){
+    if(wanted>array[end] || wanted< array[start]) return 0;
+
+    middle = (start+end)/2;
+
+    if(array[middle]==wanted) return 1;
+    else if(array[middle] < wanted) start=middle+1;
+    else if(array[middle] > wanted)	end=middle-1;
+  }
+  return 0;
+}
+
+/*int binary_search_recursive(int array[], int start, int end, int wanted){
+
+	int middle = (start+end)/2;
+
+	if(wanted>array[end] || wanted< array[start]) return 0;
+
+	if(array[middle]==wanted) return 1;
+
+	if(array[middle]< wanted)	binary_search_recursive(array, (middle +1), end, wanted);
+	else if(array[middle]> wanted) binary_search_recursive(array, start, (middle -1), wanted);
+}
+*/
 void search_options() {
   printf("\n\tEscolha uma busca:\n\n");
   printf("1 - Busca sequencial\n");
   printf("2 - Busca sequencial com sentinela\n");
   printf("3 - Busca sequencial com mover para frente\n");
   printf("4 - Busca sequencial com tranposicao\n");
+  printf("5 - Busca binaria\n");
+  printf("6 - Busca binaria recursiva\n");
 }
