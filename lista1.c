@@ -15,6 +15,8 @@ void search_options();
 int main() {
   int length, wanted, index = -1, search_option = 0;
   char continue_search;
+  int start=0;
+	int end= length-1;
 
   // Continue the search?
   do {
@@ -55,7 +57,7 @@ int main() {
         print_array(array, length);
         break;
       case 6:
-        binary_search_recursive(array, start, end, wanted)
+        binary_search_recursive(array, start, end, wanted);
         printf("\nLista apos busca:\n");
         print_array(array, length);
         break;
@@ -181,7 +183,7 @@ int binary_search(int array[], int length, int wanted){
   return 0;
 }
 
-/*int binary_search_recursive(int array[], int start, int end, int wanted){
+int binary_search_recursive(int array[], int start, int end, int wanted){
 
 	int middle = (start+end)/2;
 
@@ -192,7 +194,7 @@ int binary_search(int array[], int length, int wanted){
 	if(array[middle]< wanted)	binary_search_recursive(array, (middle +1), end, wanted);
 	else if(array[middle]> wanted) binary_search_recursive(array, start, (middle -1), wanted);
 }
-*/
+
 void search_options() {
   printf("\n\tEscolha uma busca:\n\n");
   printf("1 - Busca sequencial\n");
