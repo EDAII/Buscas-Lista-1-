@@ -11,12 +11,13 @@ int sequential_search_transposition(int array[], int length, int wanted);
 int binary_search(int array[], int length, int wanted);
 int binary_search_recursive(int array[], int start, int end, int wanted);
 void search_options();
+void shell_sort(int A[], int n);
+
 
 int main() {
   int length, wanted, index = -1, search_option = 0;
   char continue_search;
-  int start=0;
-	int end= length-1;
+  int start, end;
 
   // Continue the search?
   do {
@@ -52,12 +53,16 @@ int main() {
         print_array(array, length);
         break;
       case 5:
+        shell_sort(array, length);
         index = binary_search(array, length, wanted);
         printf("\nLista apos busca:\n");
         print_array(array, length);
         break;
       case 6:
-        binary_search_recursive(array, start, end, wanted);
+        start=0;
+        end = length - 1;
+        shell_sort(array, length);
+        index = binary_search_recursive(array, start, end, wanted);
         printf("\nLista apos busca:\n");
         print_array(array, length);
         break;
@@ -167,32 +172,43 @@ int sequential_search_transposition(int array[], int length, int wanted) {
 
 int binary_search(int array[], int length, int wanted){
 
-	int start=0;
-	int end= length-1;
-	int middle = (start+end)/2;
+  int left = 0, middle, right = length -1;
 
-	while(middle!=start || middle!=end){
-    if(wanted>array[end] || wanted< array[start]) return 0;
+  while(left < right) {
+    middle = (left + right) / 2;
 
-    middle = (start+end)/2;
+    if(array[middle] == wanted) {
+      return middle; // Found number
+    }
 
-    if(array[middle]==wanted) return 1;
-    else if(array[middle] < wanted) start=middle+1;
-    else if(array[middle] > wanted)	end=middle-1;
+    if(array[middle] < wanted) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
+
   }
-  return 0;
+
+  return -1; // Number not found
 }
 
 int binary_search_recursive(int array[], int start, int end, int wanted){
 
-	int middle = (start+end)/2;
+  printf("start = %d\n", start);
+  printf("end = %d\n", end);
+	if(start > end) {
+    return -1;
+  } else {
+    int middle = (start + end) / 2;
 
-	if(wanted>array[end] || wanted< array[start]) return 0;
-
-	if(array[middle]==wanted) return 1;
-
-	if(array[middle]< wanted)	binary_search_recursive(array, (middle +1), end, wanted);
-	else if(array[middle]> wanted) binary_search_recursive(array, start, (middle -1), wanted);
+    if(array[middle] == wanted) {
+      return middle;
+    } else if(array[middle] < wanted) {
+      return binary_search_recursive(array,(middle + 1), end, wanted);
+    } else {
+      return binary_search_recursive(array, start, (middle - 1), wanted);
+    }
+  }
 }
 
 void search_options() {
@@ -203,4 +219,23 @@ void search_options() {
   printf("4 - Busca sequencial com tranposicao\n");
   printf("5 - Busca binaria\n");
   printf("6 - Busca binaria recursiva\n");
+}
+
+void shell_sort(int A[], int n) {
+  int i, j, gap = 1, chave;
+
+  while(gap < n/3) {
+    gap = gap * 3 + 1;
+  }
+
+  while(gap > 0) {
+    for(i = 1; i < n; i++) {
+      chave = A[i];
+      for(j = i; j >= gap && chave < A[j-gap]; j -= gap) {
+        A[j] = A[j-gap];
+      }
+      A[j] = chave;
+    }
+    gap /= 3;
+  }
 }
