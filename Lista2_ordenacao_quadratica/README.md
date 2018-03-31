@@ -19,6 +19,8 @@ void selection_sort(int array[], int size) {
     }
 }
 ```
+O selection sort não é estável, na maioria dos casos(existem casos que isso é sanado) e ocupa espaço em memória de O(1). Para comparações os selection sort faz a tarefa em O(n²) e a movimentação em O(n).
+
 
 ![selection table](./img/selection_table.png)
 
@@ -38,6 +40,7 @@ void bubble_sort(int array[], int size) {
     }
 }
 ```
+O bubble Sort tem a vangtagem de ser estável, tadavia a comparação e movimentação em O(n²).
 
 ![bubble table](./img/bubble_table.png)
 
@@ -56,6 +59,7 @@ void insertion_sort(int array[], int size) {
   }
 }
 ```
+O insertion sort também é estável, mas tem aplicações mais especificas, pois ele se torna O(n) tanto em coparação quanto para inserção, no melhor caso. No caso médio e no pior caso a complexidade da comparação e inserção se torna O(n²).
 
 ![insertion table](./img/insertion_table.png)
 
@@ -82,6 +86,7 @@ void shell_sort(int array[], int size) {
   }
 }
 ```
+O shell sort não é estável e tem uma complexidade aplicada para o ato de comparação aproximado em O(n^(1.25)) ou O(n(ln n)^2).
 
 ![shell table](./img/shell_table.png)
 
@@ -106,3 +111,5 @@ void shell_sort(int array[], int size) {
 ![random table](./img/comp_random_table.png)
 
 ![random graph](./img/comp_random_graph.png)
+
+Na maioria dos casos o Shell Sort se portou com maior velocidade, mas quando o arranjo já está ordenado em forma crescente o insertion sort é mais rápido.
