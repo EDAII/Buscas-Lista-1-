@@ -4,7 +4,7 @@
 
 using namespace std;
  
-// A structure to represent a Point in 2D plane
+// Ponto nos eixos X e Y
 struct Point {
     int x, y;
 };
